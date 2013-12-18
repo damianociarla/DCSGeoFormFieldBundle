@@ -1,0 +1,25 @@
+{
+    "name": "damianociarla/geo-form-field-bundle",
+    "description": "DCSGeoFormFieldBundle adds a new field type for geolocation addresses in Symfony2.",
+    "type": "library",
+    "keywords": [
+        "symfony2","google","geocoding","form","field","javascript","callback"
+    ],
+    "license": "MIT",
+    "homepage": "https://github.com/damianociarla/DCSGeoFormFieldBundle",
+    "authors": [
+        {
+            "name": "Damiano Ciarla",
+            "email": "damiano.ciarla@gmail.com",
+            "homepage": "http://www.damianociarla.it/"
+        }
+    ],
+    "require": {
+        "php": ">=5.3",
+        "symfony/symfony": "2.3.*"
+    },
+    "autoload": {
+        "psr-0": { "DCS\\Form\\GeoFormFieldBundle": "" }
+    },
+    "target-dir": "DCS/Form/GeoFormFieldBundle"
+}
