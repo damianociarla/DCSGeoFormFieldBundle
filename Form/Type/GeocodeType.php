@@ -31,21 +31,23 @@ class GeocodeType extends AbstractType
     public function setDefaultOptions(OptionsResolverInterface $resolver)
     {
         $resolver->setDefaults(array(
-            'config'        => null,
-            'callback'      => $this->config['default']['callback'],
-            'loadGoogle'    => $this->config['default']['loadGoogle'],
-            'apiKey'        => $this->config['default']['apiKey'],
-            'preventEnter'  => $this->config['default']['preventEnter'],
-            'language'      => $this->config['default']['language'],
+            'config'            => null,
+            'callback'          => $this->config['default']['callback'],
+            'callbackWhenEmpty' => $this->config['default']['callbackWhenEmpty'],
+            'loadGoogle'        => $this->config['default']['loadGoogle'],
+            'apiKey'            => $this->config['default']['apiKey'],
+            'preventEnter'      => $this->config['default']['preventEnter'],
+            'language'          => $this->config['default']['language'],
         ));
 
         $resolver->setAllowedTypes(array(
-            'config'        => array('string', 'null'),
-            'callback'      => array('string', 'null'),
-            'loadGoogle'    => 'bool',
-            'apiKey'        => array('string', 'null'),
-            'preventEnter'  => 'bool',
-            'language'      => 'string',
+            'config'            => array('string', 'null'),
+            'callback'          => array('string', 'null'),
+            'callbackWhenEmpty' => array('string', 'null'),
+            'loadGoogle'        => 'bool',
+            'apiKey'            => array('string', 'null'),
+            'preventEnter'      => 'bool',
+            'language'          => 'string',
         ));
     }
 

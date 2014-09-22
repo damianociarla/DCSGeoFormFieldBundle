@@ -1,41 +1,49 @@
 {% block geocode_widget %}
-{% spaceless %}
-    {{ form_widget(form) }}
-    
-    <script type="text/javascript">
-    function initialize_{{ id }}() {
-        var element = document.getElementById('{{ id }}');
-        var autocomplete = new google.maps.places.Autocomplete(element);
+    {% spaceless %}
+        {{ form_widget(form) }}
 
-        google.maps.event.addListener(autocomplete, 'place_changed', function() {
-            var place = autocomplete.getPlace();
-            {% if callback is not null %}
-            {{ callback }}(place);
-            {% endif %}
-        });
+        <script type="text/javascript">
+            function initialize_{{ id }}() {
+                var element = document.getElementById('{{ id }}');
+                var autocomplete = new google.maps.places.Autocomplete(element);
 
-        {% if preventEnter %}
-        google.maps.event.addDomListener(element, 'keydown', function(event) {
-            if (event.which == 13) {
-                if (event.preventDefault) {
-                    event.preventDefault();
-                } else {
-                    event.cancelBubble = true;
-                    event.returnValue = false;
-                }
+                google.maps.event.addListener(autocomplete, 'place_changed', function() {
+                    var place = autocomplete.getPlace();
+                    {% if callback is not null %}
+                    {{ callback }}(place);
+                    {% endif %}
+                });
+
+                {% if callbackWhenEmpty is not null %}
+                google.maps.event.addDomListener(element, 'keyup', function(event) {
+                    if (event.target.value == '') {
+                        {{ callbackWhenEmpty }}(element);
+                    }
+                });
+                {% endif %}
+
+                {% if preventEnter %}
+                google.maps.event.addDomListener(element, 'keydown', function(event) {
+                    if (event.which == 13) {
+                        if (event.preventDefault) {
+                            event.preventDefault();
+                        } else {
+                            event.cancelBubble = true;
+                            event.returnValue = false;
+                        }
+                    }
+                });
+                {% endif %}
             }
-        });
-        {% endif %}
-    }
-    
-    {% if loadGoogle %}
-    var script = document.createElement("script");
-    script.type = "text/javascript";
-    script.src = "https://maps.googleapis.com/maps/api/js?key={{ apiKey }}&sensor=true&libraries=places&callback=initialize_{{ id }}&language={{ language }}";
-    document.body.appendChild(script);
-    {% else %}
-    initialize_{{ id }}();
-    {% endif %}
-    </script>
-{% endspaceless %}
+
+            {% if loadGoogle %}
+            var script = document.createElement("script");
+            script.type = "text/javascript";
+            script.src = "https://maps.googleapis.com/maps/api/js?key={{ apiKey }}&sensor=true&libraries=places&callback=initialize_{{ id }}&language={{ language }}";
+            document.body.appendChild(script);
+            {% else %}
+            initialize_{{ id }}();
+            {% endif %}
+        </script>
+    {% endspaceless %}
 {% endblock %}
